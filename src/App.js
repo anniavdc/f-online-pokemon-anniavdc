@@ -1,22 +1,38 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch, Link } from 'react-router-dom';
+import { getList } from './services/pokemonService';
 import Home from './components/Home';
 import Pokemon from './components/Pokemon';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      data:[],
+    this.state = {
+      dataList: [],
     }
+    this.fetchList = this.fetchList.bind(this);
   }
+  componentDidMount() {
+    this.fetchList();
+  }
+
+  fetchList(){
+    getList().then(data => {
+      this.setState({
+        dataList: data.results,
+      })
+    })
+  }
+
   render() {
+    const {dataList} = this.state;
     return (
       <div className='App'>
         <Switch>
-          <Route exact path='/' component={ Home } />
-          <Route path='/pokemon' component={ Pokemon } />
+          <Route exact path='/' 
+          render={routerProps => (<Home dataList = {dataList}/>)} />
+          <Route path='/pokemon' component={Pokemon} />
         </Switch>
       </div>
     );

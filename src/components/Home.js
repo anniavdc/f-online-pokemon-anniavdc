@@ -1,9 +1,11 @@
 import React from 'react';
+import PokeList from './PokeList';
 
 class Home extends React.Component{
     render(){
         return(
-            <p>Soy Home</p>
+            <PokeList 
+            dataList={this.props.dataList}/>
         )
     }
 }
