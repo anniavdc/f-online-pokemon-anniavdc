@@ -4,7 +4,7 @@ class PokeCard extends React.Component{
     render(){
         const {name, url} = this.props;
         return(
-            <p>Soy PokeCard</p>
+            <p>{name}</p>
         )
     }
 }
