@@ -3,9 +3,16 @@ import PokeList from './PokeList';
 
 class Home extends React.Component{
     render(){
+        const {getInputValue, dataList, inputValue, pokeData} = this.props;
         return(
-            <PokeList 
-            dataList={this.props.dataList}/>
+            <React.Fragment>
+                <h1>Pokemon</h1>
+                <input type="text" onChange={getInputValue}/>
+                <PokeList 
+                dataList={dataList}
+                pokeData={pokeData}
+                inputValue={inputValue}/>
+            </React.Fragment>
         )
     }
 }

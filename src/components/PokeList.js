@@ -1,30 +1,21 @@
 import React from 'react';
 import PokeCard from './PokeCard';
+import './PokeList.css';
 
 class PokeList extends React.Component {
-    constructor(props){
-        super(props);
-        this.getImageSrc=this.getImageSrc.bind(this);
-    }
-    getImageSrc(url){
-        const regex = /\/(\d+)\//g;
-        const string = url;
-        const matches = regex.exec(string);
-        console.log(matches);
-        const id = matches[1];
-        const src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
-        
-        return src;
-    }
     render() {
-        const { dataList } = this.props;
+        const { pokeData, inputValue } = this.props;
         return (
-            <ul>
-                {dataList.map(pokemon =>
-                    <li>
+            <ul className='PokeList__list'>
+                {pokeData
+                .filter(pokemon => pokemon.name.includes(inputValue))
+                .map(pokemon =>
+                    <li className='PokeList__item'>
                         <PokeCard 
                         name={pokemon.name}
-                        image={this.getImageSrc(pokemon.url)}/>
+                        imageSrc={pokemon.sprites.front_default}
+                        types={pokemon.types}
+                       />
                     </li>
                 )}
             </ul>

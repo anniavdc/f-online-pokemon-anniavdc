@@ -1,39 +1,52 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, Link } from 'react-router-dom';
-import { getList } from './services/pokemonService';
+import { getList, getDetail } from './services/pokemonService';
 import Home from './components/Home';
-import Pokemon from './components/Pokemon';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataList: [],
+      pokeData: [],
+      inputValue: '',
     }
     this.fetchList = this.fetchList.bind(this);
+    this.getInputValue = this.getInputValue.bind(this);
   }
   componentDidMount() {
     this.fetchList();
   }
 
-  fetchList(){
-    getList().then(data => {
-      this.setState({
-        dataList: data.results,
+  fetchList() {
+    getList()
+    .then(data => {
+      data.results.forEach(pokemon => {
+        getDetail(pokemon.url)
+        .then(pokemonData => {
+          this.setState({
+            pokeData: [...this.state.pokeData, pokemonData],
+          })
+        }
+        )
       })
     })
   }
 
+  getInputValue(event) {
+    const value = event.target.value
+    this.setState({
+      inputValue: value,
+    })
+  }
   render() {
-    const {dataList} = this.state;
+    const { inputValue, pokeData } = this.state;
     return (
       <div className='App'>
-        <Switch>
-          <Route exact path='/' 
-          render={routerProps => (<Home dataList = {dataList}/>)} />
-          <Route path='/pokemon' component={Pokemon} />
-        </Switch>
+        <Home
+              pokeData={pokeData}
+              inputValue={inputValue}
+              getInputValue={this.getInputValue}
+            />
       </div>
     );
   }
