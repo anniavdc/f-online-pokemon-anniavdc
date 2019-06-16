@@ -1,18 +1,23 @@
 import React from 'react';
 import PokeList from './PokeList';
+import './Home.css'
+import poke from './../images/pokemon.jpg'
 
 class Home extends React.Component{
     render(){
-        const {getInputValue, dataList, inputValue, pokeData} = this.props;
+        const {getInputValue, inputValue, pokeData} = this.props;
         return(
-            <React.Fragment>
-                <h1>Pokemon</h1>
-                <input type="text" onChange={getInputValue}/>
+            <div className='Home__container' style={{backgroundImage:`url(${poke})`}}>
+                <h1 className='Home__title'>Pokedex</h1>
+                <input 
+                type="text" 
+                onChange={getInputValue} 
+                placeholder='Search by name'
+                className='Home__input-search'/>
                 <PokeList 
-                dataList={dataList}
                 pokeData={pokeData}
                 inputValue={inputValue}/>
-            </React.Fragment>
+            </div>
         )
     }
 }

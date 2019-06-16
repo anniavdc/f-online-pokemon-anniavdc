@@ -1,3 +1,14 @@
+.PokeCard__title{
+    background-color: rgba(128, 128, 128,0.7);
+    margin-top: 0;
+}
+.PokeCard__id{
+    font-size: 12px;
+    color: lightslategray;
+    text-align: end;
+    padding: 0 10px 5px 0;
+    margin: 0;
+}
 .PokeCard__content-list{
     display: flex;
     justify-content: space-around;

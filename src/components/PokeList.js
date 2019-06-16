@@ -9,10 +9,11 @@ class PokeList extends React.Component {
             <ul className='PokeList__list'>
                 {pokeData
                 .filter(pokemon => pokemon.name.includes(inputValue))
-                .map(pokemon =>
-                    <li className='PokeList__item'>
+                .map((pokemon, index) =>
+                    <li className='PokeList__item' key={index}>
                         <PokeCard 
                         name={pokemon.name}
+                        id={pokemon.id}
                         imageSrc={pokemon.sprites.front_default}
                         types={pokemon.types}
                        />
